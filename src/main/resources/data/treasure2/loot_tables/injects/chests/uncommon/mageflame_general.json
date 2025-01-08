@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "pools": [
+    {
+      "name": "mageflame_uncommon_items",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mageflame:mage_flame_scroll",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 3,
+                "max": 5
+              }
+            }
+          ],
+          "weight": 30
+        }
+      ]
+    }
+  ]
+}

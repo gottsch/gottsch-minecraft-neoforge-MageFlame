@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "pools": [
+    {
+      "name": "mageflame_legendary_items",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mageflame:greater_revelation_scroll",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 6,
+                "max": 10
+              }
+            }
+          ],
+          "weight": 30
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mageflame:winged_torch_scroll",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 3,
+                "max": 5
+              }
+            }
+          ],
+          "weight": 20
+        }
+      ]
+    }
+  ]
+}

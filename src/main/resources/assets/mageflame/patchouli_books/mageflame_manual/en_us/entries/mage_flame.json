@@ -1,0 +1,23 @@
+{
+  "name": "Mage Flame",
+  "icon": "mageflame:mage_flame_scroll",
+  "category": "mageflame:manual",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Mage Flame",
+      "item": {
+        "item": "mageflame:mage_flame_scroll"
+      },
+      "text": "Weakest and cheapest of the mage flame spells.$(br)Brightness = 11$(br)Duration = 10 minutes",
+      "anchor": "mage_flame"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Mage Flame Recipe",
+      "recipe": "mageflame:mage_flame_scroll",
+      "text": ""
+    }
+  ]
+}
