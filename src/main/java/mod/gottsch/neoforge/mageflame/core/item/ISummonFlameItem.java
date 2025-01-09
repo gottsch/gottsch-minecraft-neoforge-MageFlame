@@ -17,10 +17,6 @@
  */
 package mod.gottsch.neoforge.mageflame.core.item;
 
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
-
 import mod.gottsch.neo.gottschcore.world.WorldInfo;
 import mod.gottsch.neoforge.mageflame.core.entity.creature.ISummonFlameEntity;
 import mod.gottsch.neoforge.mageflame.core.registry.SummonFlameRegistry;
@@ -28,15 +24,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.NaturalSpawner;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * 
@@ -71,7 +68,6 @@ public interface ISummonFlameItem {
 	 * @param owner
 	 * @param entityType
 	 * @param coords
-	 * @param target
 	 * @return
 	 */
 	default public Optional<Mob> spawn(ServerLevel level, Random random, LivingEntity owner, EntityType<? extends Mob> entityType, Vec3 coords) {
@@ -81,9 +77,9 @@ public interface ISummonFlameItem {
 			// select the first available spawn pos from origin (coords)
 			Vec3 spawnVec3 = selectSpawnPos(level, coords, direction);
 			BlockPos spawnPos = new BlockPos((int)spawnVec3.x, (int)spawnVec3.y, (int)spawnVec3.z);
-
-			SpawnPlacements.Type placement = SpawnPlacements.getPlacementType(entityType);
-			if (NaturalSpawner.isSpawnPositionOk(placement, level, spawnPos, entityType)) {
+			BlockState state = level.getBlockState(spawnPos);
+			SpawnPlacementType placement = SpawnPlacements.getPlacementType(entityType);
+			if (NaturalSpawner.isValidEmptySpawnBlock(level, spawnPos, state, state.getFluidState(), entityType)) {
 				// create entity
 				Mob mob = entityType.create(level);
 				if (mob != null) {

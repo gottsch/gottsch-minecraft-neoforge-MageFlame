@@ -27,6 +27,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 
 /**
@@ -45,14 +46,14 @@ public class WingedTorchScroll extends SummonFlameBaseItem {
 	}
 	
 	@Override
-	public void appendBaseText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
+	public void appendBaseText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		tooltip.add(Component.translatable(LangUtil.tooltip("winged_torch.desc")).withStyle(ChatFormatting.YELLOW));
 		tooltip.add(Component.literal(LangUtil.NEWLINE));
-		tooltip.add(Component.translatable(LangUtil.tooltip("light_level"), Registration.GREATER_REVELATION_BLOCK.get().getLightEmission(Registration.GREATER_REVELATION_BLOCK.get().defaultBlockState(), level, null)));					
+		tooltip.add(Component.translatable(LangUtil.tooltip("light_level"), Registration.GREATER_REVELATION_BLOCK.get().getLightEmission(Registration.GREATER_REVELATION_BLOCK.get().defaultBlockState(), (BlockGetter) null, null)));
 	}
 
 	@Override
-	public void appendAdvancedText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-		appendLore(stack, level, tooltip, flag, "winged_torch.lore");
+	public void appendAdvancedText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+		appendLore(stack, context, tooltip, flag, "winged_torch.lore");
 	}
 }

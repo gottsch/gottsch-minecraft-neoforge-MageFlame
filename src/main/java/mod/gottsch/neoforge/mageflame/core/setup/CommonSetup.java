@@ -24,12 +24,13 @@ import mod.gottsch.neoforge.mageflame.core.entity.creature.GreaterRevelationEnti
 import mod.gottsch.neoforge.mageflame.core.entity.creature.LesserRevelationEntity;
 import mod.gottsch.neoforge.mageflame.core.entity.creature.MageFlameEntity;
 import mod.gottsch.neoforge.mageflame.core.entity.creature.WingedTorchEntity;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -40,7 +41,7 @@ import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
  * @author Mark Gottschling Jan 19, 2023
  *
  */
-@Mod.EventBusSubscriber(modid = MageFlame.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MageFlame.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class CommonSetup {
 	/**
 	 * 
@@ -72,25 +73,25 @@ public class CommonSetup {
 	public static void registerEntitySpawnPlacements(SpawnPlacementRegisterEvent event) {
 
 		event.register(Registration.MAGE_FLAME_ENTITY.get(),
-				SpawnPlacements.Type.NO_RESTRICTIONS,
+				SpawnPlacementTypes.NO_RESTRICTIONS,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 MageFlameEntity::checkSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.OR);
 		
 		event.register(Registration.LESSER_REVELATION_ENTITY.get(),
-				SpawnPlacements.Type.NO_RESTRICTIONS,
+				SpawnPlacementTypes.NO_RESTRICTIONS,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 LesserRevelationEntity::checkSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.OR);
 		
 		event.register(Registration.GREATER_REVELATION_ENTITY.get(),
-				SpawnPlacements.Type.NO_RESTRICTIONS,
+				SpawnPlacementTypes.NO_RESTRICTIONS,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 GreaterRevelationEntity::checkSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.OR);
 		
 		event.register(Registration.WINGED_TORCH_ENTITY.get(),
-				SpawnPlacements.Type.NO_RESTRICTIONS,
+				SpawnPlacementTypes.NO_RESTRICTIONS,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 WingedTorchEntity::checkSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.OR);

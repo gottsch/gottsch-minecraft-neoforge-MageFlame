@@ -55,24 +55,24 @@ public abstract class SummonFlameBaseItem extends Item implements ISummonFlameIt
 	public Component getName(ItemStack stack) {
 		return ((MutableComponent)super.getName(stack)).withStyle(ChatFormatting.AQUA);
 	}
-	
+
 	@Override
-	public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-		appendBaseText(stack, level, tooltip, flag);
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+		appendBaseText(stack, context, tooltip, flag);
 		LangUtil.appendAdvancedHoverText(tooltip, tt -> {
-			appendAdvancedText(stack, level, tooltip, flag);
+			appendAdvancedText(stack, context, tooltip, flag);
 		});
 	}
 
-	public void appendBaseText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
+	public void appendBaseText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 
 	}
 
-	public void appendAdvancedText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
+	public void appendAdvancedText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 
 	}
 	
-	public void appendLore(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag, String key) {
+	public void appendLore(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag, String key) {
 		Component lore = Component.translatable(LangUtil.tooltip(key));
 		tooltip.add(Component.literal(LangUtil.NEWLINE));
 		for (String s : lore.getString().split("~")) {	

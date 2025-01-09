@@ -19,9 +19,12 @@ package mod.gottsch.neoforge.mageflame.datagen;
 
 import mod.gottsch.neoforge.mageflame.core.setup.Registration;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 
@@ -30,8 +33,8 @@ import net.minecraft.world.item.Items;
  */
 public class Recipes extends RecipeProvider {
 
-		public Recipes(PackOutput generator) {
-			super(generator);
+		public Recipes(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+			super(output, provider);
 		}
 
 		@Override

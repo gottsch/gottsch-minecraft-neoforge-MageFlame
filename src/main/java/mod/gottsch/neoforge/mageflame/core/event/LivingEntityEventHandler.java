@@ -24,7 +24,7 @@ import mod.gottsch.neoforge.mageflame.core.registry.SummonFlameRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 
 /**
@@ -32,7 +32,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
  * @author Mark Gottschling on Nov 6, 2022
  *
  */
-@Mod.EventBusSubscriber(modid = MageFlame.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = MageFlame.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class LivingEntityEventHandler {
 //	@SubscribeEvent
 //	public static void onEntityUpdate(LivingTickEvent event) {

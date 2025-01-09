@@ -59,7 +59,7 @@ import java.util.UUID;
  *
  */
 public abstract class SummonFlameBaseEntity extends FlyingMob implements ISummonFlameEntity {
-	private static final EntityDataAccessor<Optional<UUID>> DATA_OWNER_UUID = SynchedEntityData.defineId(MageFlameEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+	private static final EntityDataAccessor<Optional<UUID>> DATA_OWNER_UUID = SynchedEntityData.defineId(SummonFlameBaseEntity.class, EntityDataSerializers.OPTIONAL_UUID);
 	public static final String OWNER = "owner";
 	public static final String LAST_LIGHT_COORDS = "currentLightCoords";
 	public static final String CURRENT_LIGHT_COORDS = "currentLightCoords";
@@ -309,9 +309,9 @@ public abstract class SummonFlameBaseEntity extends FlyingMob implements ISummon
 	 * Set initial values of synced data
 	 */
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(DATA_OWNER_UUID, Optional.empty());
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(DATA_OWNER_UUID, Optional.empty());
 	}
 
 	@Override

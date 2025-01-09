@@ -21,7 +21,7 @@ import mod.gottsch.neoforge.mageflame.core.MageFlame;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 /**
@@ -29,7 +29,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
  * @author Mark Gottschling on Nov 6, 2022
  *
  */
-@Mod.EventBusSubscriber(modid = MageFlame.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MageFlame.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 
 	@SubscribeEvent
@@ -37,7 +37,7 @@ public class DataGenerators {
 		DataGenerator generator = event.getGenerator();
 		PackOutput output = generator.getPackOutput();
 		if (event.includeServer()) {
-			generator.addProvider(event.includeServer(), new Recipes(output));
+			generator.addProvider(event.includeServer(), new Recipes(output, event.getLookupProvider()));
 			//            generator.addProvider(new TutLootTables(generator));
 			//            TutBlockTags blockTags = new TutBlockTags(generator, event.getExistingFileHelper());
 			//            generator.addProvider(blockTags);
