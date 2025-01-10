@@ -58,7 +58,7 @@ public class LanguageGen extends LanguageProvider {
 
         add(LangUtil.tooltip("mage_flame.desc"), "Allows the spellcaster to create a small ball of flames.");
         add(LangUtil.tooltip("mage_flame.lore"), 
-        		"The weakess of the summoned flames,~"
+        		"The weakest of the summoned flames,~"
         		+ "well-suited for the apprentice spellcaster.~"
         		+ "It will allow you to see, but not as bright~"
         		+ "as a regular torch. It is not strong enough~"
