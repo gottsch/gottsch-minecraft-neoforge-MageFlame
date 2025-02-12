@@ -41,7 +41,7 @@ import net.minecraft.world.entity.Entity;
  * @param <T>
  */
 public class LargeFlameBallModel<T extends Entity> extends EntityModel<T> {
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(MageFlame.MOD_ID, "large_flame_ball"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(MageFlame.MOD_ID, "large_flame_ball"), "main");
 	private final ModelPart main;
 	private float bodyY;
 	
@@ -73,7 +73,7 @@ public class LargeFlameBallModel<T extends Entity> extends EntityModel<T> {
 	}
 	
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		main.render(poseStack, vertexConsumer, packedLight, packedOverlay);
 	}
 }

@@ -20,21 +20,16 @@ package mod.gottsch.neoforge.mageflame.core.setup;
 
 import mod.gottsch.neoforge.mageflame.core.MageFlame;
 import mod.gottsch.neoforge.mageflame.core.config.Config;
-import mod.gottsch.neoforge.mageflame.core.entity.creature.GreaterRevelationEntity;
-import mod.gottsch.neoforge.mageflame.core.entity.creature.LesserRevelationEntity;
-import mod.gottsch.neoforge.mageflame.core.entity.creature.MageFlameEntity;
-import mod.gottsch.neoforge.mageflame.core.entity.creature.WingedTorchEntity;
-import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.entity.SpawnPlacements;
+import mod.gottsch.neoforge.mageflame.core.entity.creature.*;
+import mod.gottsch.neoforge.mageflame.core.item.ModItems;
+import mod.gottsch.neoforge.mageflame.core.network.ModNetwork;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
 
 /**
  * 
@@ -50,7 +45,6 @@ public class CommonSetup {
 	public static void common(final FMLCommonSetupEvent event) {
 		// add mod specific logging
 		Config.instance.addRollingFileAppender(MageFlame.MOD_ID);
-//		MageFlameNetworking.register();
 
 		// treasure2 integration (needs to be registered BEFORE LevelEvent.Load)
 //		Integrations.registerTreasure2Integration();
@@ -66,45 +60,21 @@ public class CommonSetup {
 		event.put(Registration.LESSER_REVELATION_ENTITY.get(), LesserRevelationEntity.createAttributes().build());
 		event.put(Registration.GREATER_REVELATION_ENTITY.get(), GreaterRevelationEntity.createAttributes().build());
 		event.put(Registration.WINGED_TORCH_ENTITY.get(), WingedTorchEntity.createAttributes().build());
-
+		event.put(Registration.EMBER_HOUND_ENTITY.get(), EmberHoundEntity.createWolfAttributes().build());
+		event.put(Registration.BUBBLE_FLAME_ENTITY.get(), BubbleFlameEntity.createAttributes().build());
+		event.put(Registration.GLOWGLOB_ENTITY.get(), GlowglobEntity.createGlobAttributes().build());
 	}
-	
-	@SubscribeEvent
-	public static void registerEntitySpawnPlacements(SpawnPlacementRegisterEvent event) {
 
-		event.register(Registration.MAGE_FLAME_ENTITY.get(),
-				SpawnPlacementTypes.NO_RESTRICTIONS,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                MageFlameEntity::checkSpawnRules,
-                SpawnPlacementRegisterEvent.Operation.OR);
-		
-		event.register(Registration.LESSER_REVELATION_ENTITY.get(),
-				SpawnPlacementTypes.NO_RESTRICTIONS,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                LesserRevelationEntity::checkSpawnRules,
-                SpawnPlacementRegisterEvent.Operation.OR);
-		
-		event.register(Registration.GREATER_REVELATION_ENTITY.get(),
-				SpawnPlacementTypes.NO_RESTRICTIONS,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                GreaterRevelationEntity::checkSpawnRules,
-                SpawnPlacementRegisterEvent.Operation.OR);
-		
-		event.register(Registration.WINGED_TORCH_ENTITY.get(),
-				SpawnPlacementTypes.NO_RESTRICTIONS,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                WingedTorchEntity::checkSpawnRules,
-                SpawnPlacementRegisterEvent.Operation.OR);
-	}
-	
 	@SubscribeEvent
 	public static void registemItemsToTab(BuildCreativeModeTabContentsEvent event) {
 		if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-			event.accept(Registration.MAGE_FLAME_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-			event.accept(Registration.LESSER_REVELATION_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-			event.accept(Registration.GREATER_REVELATION_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-			event.accept(Registration.WINGED_TORCH_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-
+			event.accept(ModItems.MAGE_FLAME_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
+			event.accept(ModItems.LESSER_REVELATION_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
+			event.accept(ModItems.GREATER_REVELATION_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
+			event.accept(ModItems.WINGED_TORCH_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
+			event.accept(ModItems.BUBBLE_FLAME_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
+			event.accept(ModItems.EMBER_HOUND_SCROLL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
+			event.accept(ModItems.GLOWGLOB_BALL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
 		}
 	}
 }

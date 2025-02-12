@@ -44,7 +44,6 @@ public class DataGenerators {
 			//            generator.addProvider(new DDItemTags(generator, blockTags, event.getExistingFileHelper()));
 		}
 		if (event.includeClient()) {
-			generator.addProvider(event.includeClient(), new BlockStates(output, event.getExistingFileHelper()));
 			generator.addProvider(event.includeClient(), new ItemModelsProvider(output, event.getExistingFileHelper()));
 			generator.addProvider(event.includeClient(), new LanguageGen(output, "en_us"));
 		}

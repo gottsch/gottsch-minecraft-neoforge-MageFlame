@@ -17,9 +17,8 @@
  */
 package mod.gottsch.neoforge.mageflame.core.item;
 
-import java.util.List;
-
 import mod.gottsch.neoforge.mageflame.core.config.Config;
+import mod.gottsch.neoforge.mageflame.core.setup.DynamicLights;
 import mod.gottsch.neoforge.mageflame.core.setup.Registration;
 import mod.gottsch.neoforge.mageflame.core.util.LangUtil;
 import net.minecraft.ChatFormatting;
@@ -28,15 +27,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 /**
  * 
  * @author Mark Gottschling Jan 19, 2023
  *
  */
-public class MageFlameScroll extends SummonFlameBaseItem {
+public class MageFlameScroll extends SummonFlyingScrollItem {
 
 	public MageFlameScroll(Properties properties) {
 		super(properties);
@@ -51,7 +50,7 @@ public class MageFlameScroll extends SummonFlameBaseItem {
 		
 		tooltip.add(Component.translatable(LangUtil.tooltip("mage_flame.desc")).withStyle(ChatFormatting.YELLOW));
 		tooltip.add(Component.literal(LangUtil.NEWLINE));
-		tooltip.add(Component.translatable(LangUtil.tooltip("light_level"), Registration.MAGE_FLAME_BLOCK.get().getLightEmission(Registration.MAGE_FLAME_BLOCK.get().defaultBlockState(), (BlockGetter)null, null)));
+		tooltip.add(Component.translatable(LangUtil.tooltip("light_level"), DynamicLights.MAGE_FLAME_LUMINANCE));
 		tooltip.add(Component.translatable(LangUtil.tooltip("lifespan"), ticksToTime(Config.SERVER.mageFlameLifespan.get())));
 	}
 

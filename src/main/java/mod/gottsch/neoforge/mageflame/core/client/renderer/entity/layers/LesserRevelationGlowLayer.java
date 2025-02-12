@@ -18,6 +18,10 @@
 package mod.gottsch.neoforge.mageflame.core.client.renderer.entity.layers;
 
 import mod.gottsch.neoforge.mageflame.core.client.model.entity.FlameBallModel;
+import mod.gottsch.neoforge.mageflame.core.client.model.entity.LargeFlameBallModel;
+import mod.gottsch.neoforge.mageflame.core.client.model.entity.WingedTorchModel;
+import mod.gottsch.neoforge.mageflame.core.entity.creature.LesserRevelationEntity;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
@@ -32,8 +36,8 @@ import net.neoforged.api.distmarker.OnlyIn;
  *
  */
 @OnlyIn(Dist.CLIENT)
-public class LesserRevelationGlowLayer<T extends Entity, M extends FlameBallModel<T>> extends EyesLayer<T, M> {
-	private static final RenderType FLAME = RenderType.eyes(new ResourceLocation("mageflame","textures/entity/lesser_revelation.png"));
+public class LesserRevelationGlowLayer<T extends LesserRevelationEntity, M extends FlameBallModel<T>> extends EyesLayer<T, M> {
+	private static final RenderType FLAME = RenderType.eyes(ResourceLocation.fromNamespaceAndPath("mageflame","textures/entity/lesser_revelation.png"));
 
 	public LesserRevelationGlowLayer(RenderLayerParent<T, M> layer) {
 		super(layer);

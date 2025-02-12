@@ -29,6 +29,7 @@ import com.google.common.collect.Maps;
  * @author Mark Gottschling Jan 23, 2023
  *
  */
+@Deprecated
 public class SummonFlameRegistry {
 	public static final Map<UUID, UUID> REGISTRY = Maps.newHashMap();
 	

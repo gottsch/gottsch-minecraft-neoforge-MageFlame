@@ -19,9 +19,9 @@ package mod.gottsch.neoforge.mageflame.core.entity.creature;
 
 import java.util.UUID;
 
-import mod.gottsch.neo.gottschcore.spatial.ICoords;
 import org.jetbrains.annotations.NotNull;
 
+import mod.gottsch.neo.gottschcore.spatial.ICoords;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;

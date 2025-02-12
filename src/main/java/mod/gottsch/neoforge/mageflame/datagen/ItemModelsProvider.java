@@ -18,6 +18,7 @@
 package mod.gottsch.neoforge.mageflame.datagen;
 
 import mod.gottsch.neoforge.mageflame.core.MageFlame;
+import mod.gottsch.neoforge.mageflame.core.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -35,19 +36,26 @@ public class ItemModelsProvider extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
-		// tabs
 		singleTexture(
-				"mage_flame_scroll",
+				ModItems.MAGE_FLAME_SCROLL.getId().getPath(),
 				mcLoc("item/generated"), "layer0", modLoc("item/mage_flame_scroll"));
 		singleTexture(
-				"lesser_revelation_scroll",
+				ModItems.LESSER_REVELATION_SCROLL.getId().getPath(),
 				mcLoc("item/generated"), "layer0", modLoc("item/lesser_revelation_scroll"));
 		singleTexture(
-				"greater_revelation_scroll",
+				ModItems.GREATER_REVELATION_SCROLL.getId().getPath(),
 				mcLoc("item/generated"), "layer0", modLoc("item/greater_revelation_scroll"));
 		singleTexture(
 				"winged_torch_scroll",
 				mcLoc("item/generated"), "layer0", modLoc("item/winged_torch_scroll"));
-
+		singleTexture(
+				"bubble_flame_scroll",
+				mcLoc("item/generated"), "layer0", modLoc("item/bubble_flame_scroll"));
+		singleTexture(
+				"ember_hound_scroll",
+				mcLoc("item/generated"), "layer0", modLoc("item/ember_hound_scroll"));
+		singleTexture(
+				"glowglob_ball",
+				mcLoc("item/generated"), "layer0", modLoc("item/glowglob_ball"));
 	}
 }

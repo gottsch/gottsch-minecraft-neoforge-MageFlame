@@ -33,7 +33,7 @@ import net.neoforged.api.distmarker.OnlyIn;
  */
 @OnlyIn(Dist.CLIENT)
 public class GreaterRevelationGlowLayer<T extends Entity, M extends LargeFlameBallModel<T>> extends EyesLayer<T, M> {
-	private static final RenderType FLAME = RenderType.eyes(new ResourceLocation("mageflame","textures/entity/greater_revelation.png"));
+	private static final RenderType FLAME = RenderType.eyes(ResourceLocation.fromNamespaceAndPath("mageflame","textures/entity/greater_revelation.png"));
 
 	public GreaterRevelationGlowLayer(RenderLayerParent<T, M> layer) {
 		super(layer);

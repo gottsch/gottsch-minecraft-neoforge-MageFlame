@@ -18,13 +18,10 @@
 package mod.gottsch.neoforge.mageflame.core.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import mod.gottsch.neoforge.mageflame.core.MageFlame;
 import mod.gottsch.neoforge.mageflame.core.client.model.entity.FlameBallModel;
 import mod.gottsch.neoforge.mageflame.core.client.renderer.entity.layers.LesserRevelationGlowLayer;
-import mod.gottsch.neoforge.mageflame.core.client.renderer.entity.layers.MageFlameGlowLayer;
 import mod.gottsch.neoforge.mageflame.core.entity.creature.LesserRevelationEntity;
-import mod.gottsch.neoforge.mageflame.core.entity.creature.MageFlameEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -36,7 +33,7 @@ import net.minecraft.resources.ResourceLocation;
  * @param <T>
  */
 public class LesserRevelationRenderer<T extends LesserRevelationEntity> extends MobRenderer<T, FlameBallModel<T>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(MageFlame.MOD_ID, "textures/entity/lesser_revelation.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(MageFlame.MOD_ID, "textures/entity/lesser_revelation.png");
 	private final float scale;
 	
 	/**

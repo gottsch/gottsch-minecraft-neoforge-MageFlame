@@ -17,15 +17,31 @@
  */
 package mod.gottsch.neoforge.mageflame.core.event;
 
+import mod.gottsch.neo.gottschcore.spatial.Coords;
+import mod.gottsch.neo.gottschcore.spatial.ICoords;
 import mod.gottsch.neoforge.mageflame.core.MageFlame;
-import mod.gottsch.neoforge.mageflame.core.entity.creature.ISummonFlameEntity;
-import mod.gottsch.neoforge.mageflame.core.entity.creature.SummonFlameBaseEntity;
-import mod.gottsch.neoforge.mageflame.core.registry.SummonFlameRegistry;
+import mod.gottsch.neoforge.mageflame.core.entity.creature.ISummonedEntity;
+import mod.gottsch.neoforge.mageflame.core.entity.creature.SummonedFlyingEntity;
+import mod.gottsch.neoforge.mageflame.core.persistence.PlayerData;
+import mod.gottsch.neoforge.mageflame.core.persistence.StateSaverAndLoader;
+import mod.gottsch.neoforge.mageflame.core.persistence.SummonedEntityData;
+import mod.gottsch.neoforge.mageflame.core.util.SpawnUtil;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
+
+import java.util.*;
 
 /**
  * 
@@ -34,61 +50,93 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
  */
 @EventBusSubscriber(modid = MageFlame.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class LivingEntityEventHandler {
-//	@SubscribeEvent
-//	public static void onEntityUpdate(LivingTickEvent event) {
-//		if (event.getEntity().level().isClientSide) {
-//			return;
-//		}
-//	}
-	
-	// TODO RESEARCH this could be better implemented in Entity.Load()
+
 	@SubscribeEvent
 	public static void onEntityJoinWorld(EntityJoinLevelEvent event) {
 		if (event.getEntity().level().isClientSide) {
 			return;
 		}
-		if (event.getEntity() instanceof ISummonFlameEntity) {
-			// MageFlame.LOGGER.debug("entity is joing the level -> {}", event.getEntity().getClass().getSimpleName());
-			SummonFlameBaseEntity entity = (SummonFlameBaseEntity)event.getEntity();
-			ServerLevel serverLevel = (ServerLevel)event.getEntity().level();
-			
-			// register the entity
-			if (entity.getOwnerUUID() != null) {
-				if(!SummonFlameRegistry.isRegistered(entity.getOwnerUUID())) {
-					SummonFlameRegistry.register(entity.getOwnerUUID(), event.getEntity().getUUID());
-				}
-				/*
-				 * NOTE this is an edge-case scenario where the entity was not unregistered and killed
-				 *  and it attempts to reunite with owner.
-				 *  TODO need to add additional info like gameTime to determine which is the younger (to keep).
-				 */
-				else if (!SummonFlameRegistry.get(entity.getOwnerUUID()).equals(event.getEntity().getUUID())) {
-					// MageFlame.LOGGER.debug("event entity -> {} has a previously registered owner -> {} and not the existing entity", event.getEntity().getStringUUID(), entity.getOwnerUUID());
+		if (event.getEntity() instanceof Player player) {
+			// load registry
+//			MageFlame.LOGGER.info("player entity joining world -> {}, {}", player.getName().getString(), event.getLevel().dimension().location().toString());
+
+			Level level = event.getLevel();
+			PlayerData playerData = StateSaverAndLoader.getPlayerState((LivingEntity) player);
+			Map<UUID, SummonedEntityData> entityDataMap = playerData.getDetachedRegistry();
+//			MageFlame.LOGGER.info("size of playerData registry -> {}", entityDataMap.size());
+			playerData.clear();
+			List<SummonedEntityData> reAddList = new ArrayList<>();
+
+			ResourceLocation dimensionId = ((ServerLevel)level).dimension().location();
+//			MageFlame.LOGGER.info("current dimension -> {}", dimensionId);
+			entityDataMap.forEach((id, entityData) -> {
+//				MageFlame.LOGGER.info("summon data -> {}", entityData);
+				if (entityData.getDimension() == null ||
+						!dimensionId.equals(entityData.getDimension())) {
 					/*
-					 *  registered to another entity, check who the younger is
+					 * spawn pos was not saved or player has changed dimensions, spawn near player if possible.
 					 */
-					Entity existingEntity = serverLevel.getEntity(SummonFlameRegistry.get(entity.getOwnerUUID()));
-					if (existingEntity != null && existingEntity instanceof ISummonFlameEntity) {
-						// MageFlame.LOGGER.debug("found existing entity -> {}", existingEntity.getStringUUID());
-						// MageFlame.LOGGER.debug("existing birth -> {}, entity birth -> {}", ((ISummonFlameEntity)existingEntity).getBirthTime(), entity.getBirthTime());
-						SummonFlameBaseEntity existingFlameEntity = (SummonFlameBaseEntity)existingEntity;
-						// check if this entity is younger than the existing entity
-						if (entity.getBirthTime() > ((ISummonFlameEntity)existingEntity).getBirthTime()) {
-							// MageFlame.LOGGER.debug("killing existing -> {}", existingEntity.getStringUUID());
-							// kill the existing registered entity
-							existingFlameEntity.setOwner(null);
-							SummonFlameRegistry.register(entity.getOwnerUUID(), event.getEntity().getUUID());
-							// MageFlame.LOGGER.debug("registering entity -> {} to owner -> {}", event.getEntity().getUUID(), entity.getOwnerUUID());
-						} else {
-							// MageFlame.LOGGER.debug("killing myself -> {}", event.getEntity().getStringUUID());
-							entity.setOwner(null);
-						}
+					Mob mob = entityData.getEntityType().create(level);
+					Optional<?> optionalMob;
+					if (mob instanceof SummonedFlyingEntity) {
+						// TODO these 5 lines are exact from SummonFlyingScrollItem - create method
+						Direction direction = player.getDirection();
+						Vec3 playerPos = SpawnUtil.getByPlayerPos(player);
+						Vec3 spawnVec3 = SpawnUtil.selectSpawnPos(level, playerPos, direction);
+						ICoords coords = Coords.of(SpawnUtil.vec3ToBlockPos(spawnVec3));
+						optionalMob = SpawnUtil.spawnAtPos((ServerLevel) level, level.random, player, entityData.getEntityType(), coords);
+//						MageFlame.LOGGER.info("called spawnAtPos...");
+					} else {
+						optionalMob = SpawnUtil.spawnAndRegister((ServerLevel) level, level.random, player, entityData.getEntityType(), Coords.of(player.blockPosition()));
+//						MageFlame.LOGGER.info("called spawnAndRegister...");
 					}
+					// if unsuccessful, re-register the entity
+					if (optionalMob.isEmpty()) {
+//						MageFlame.LOGGER.info("unable to create mob, re-add to playerData");
+						reAddList.add(entityData);
+					}
+					reAddList.forEach(data -> {
+						playerData.register(data.getId(), data);
+					});
+				} else {
+					/*
+					 * same dimension as when registered. spawn at saved position.
+					 */
+					SpawnUtil.spawnAtPos((ServerLevel) level, level.random, (LivingEntity) player, entityData.getEntityType(), entityData.getCoords());
+//					MageFlame.LOGGER.info("same dimension, spawnAtPos");
 				}
-			}
-			
-			// update position and light blocks
-			entity.updateLightBlocks();
+			});
+		}
+	}
+
+	@SubscribeEvent
+	public static void onEntityLeaveWorld(EntityLeaveLevelEvent event) {
+		if (event.getLevel().isClientSide) {
+			return;
+		}
+
+		ServerLevel level = (ServerLevel) event.getLevel();
+		if (event.getEntity() instanceof Player player) {
+			MageFlame.LOGGER.info("player entity leaving world -> {}", player.getName().getString());
+
+			PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
+			playerData.getKeys().forEach(modId -> {
+				// get the entity from the world
+				Entity mob = level.getEntity(modId);
+				if (mob instanceof ISummonedEntity lightSourceEntity) {
+					// update player's entities
+					playerData.get(modId).ifPresent(data -> {
+						data.setLifespan(lightSourceEntity.getLifespan());
+						data.setCoords(Coords.of(mob.blockPosition()));
+
+					});
+					// kill mob
+					mob.kill();
+				} else {
+					// can't find mob so unregister
+					playerData.unregister(modId);
+				}
+			});
 		}
 	}
 }

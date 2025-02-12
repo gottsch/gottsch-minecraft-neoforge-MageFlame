@@ -17,30 +17,22 @@
  */
 package mod.gottsch.neoforge.mageflame.core.entity.creature;
 
-import org.jetbrains.annotations.NotNull;
-
 import mod.gottsch.neoforge.mageflame.core.config.Config;
 import mod.gottsch.neoforge.mageflame.core.setup.Registration;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.FlyingMob;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 
 /**
  * 
  * @author Mark Gottschling Jan 22, 2023
  *
  */
-public class LesserRevelationEntity extends SummonFlameBaseEntity {
+public class LesserRevelationEntity extends SummonedFlyingEntity {
 
 	public LesserRevelationEntity(EntityType<? extends FlyingMob> entityType, Level level) {
 		super(entityType, level, Config.SERVER.lesserRevelationLifespan.get());
-	}
-
-	@Override
-	public @NotNull Block getFlameBlock() {
-		 return Registration.LESSER_REVELATION_BLOCK.get();
 	}
 
 	@Override

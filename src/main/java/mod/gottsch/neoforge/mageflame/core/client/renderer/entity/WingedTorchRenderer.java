@@ -18,7 +18,6 @@
 package mod.gottsch.neoforge.mageflame.core.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import mod.gottsch.neoforge.mageflame.core.MageFlame;
 import mod.gottsch.neoforge.mageflame.core.client.model.entity.WingedTorchModel;
 import mod.gottsch.neoforge.mageflame.core.client.renderer.entity.layers.WingedTorchFlameLayer;
@@ -34,7 +33,7 @@ import net.minecraft.resources.ResourceLocation;
  * @param <T>
  */
 public class WingedTorchRenderer<T extends WingedTorchEntity> extends MobRenderer<T, WingedTorchModel<T>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(MageFlame.MOD_ID, "textures/entity/winged_torch.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(MageFlame.MOD_ID, "textures/entity/winged_torch.png");
 	private final float scale;
 
 	/**

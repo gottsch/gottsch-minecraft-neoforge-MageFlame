@@ -38,7 +38,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * @author Mark Gottschling Jan 23, 2023
  *
  */
-public class WingedTorchEntity extends SummonFlameBaseEntity {
+public class WingedTorchEntity extends SummonedFlyingEntity {
 
 	public WingedTorchEntity(EntityType<? extends FlyingMob> entityType, Level level) {
 		super(entityType, level, Config.SERVER.mageFlameLifespan.get());
@@ -55,13 +55,8 @@ public class WingedTorchEntity extends SummonFlameBaseEntity {
 	}
 	
 	@Override
-	protected double updateLifespan() {
+	public double updateLifespan() {
 		return getLifespan();
-	}
-	
-	@Override
-	public @NotNull Block getFlameBlock() {
-		 return Registration.GREATER_REVELATION_BLOCK.get();
 	}
 
 	@Override
@@ -72,18 +67,4 @@ public class WingedTorchEntity extends SummonFlameBaseEntity {
 		this.level().addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 		this.level().addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 	}
-	
-	/**
-	 * Winged Torch is powerful enough to destroy replaceable blocks
-	 */
-	@Override
-	protected boolean testPlacement(BlockPos pos) {
-		BlockState state = this.level().getBlockState(pos);
-		// check block
-		if (state.isAir() || (state.canBeReplaced()) && state.getFluidState().isEmpty()) {
-			return true;
-		}
-		return false;
-	}
-	
 }

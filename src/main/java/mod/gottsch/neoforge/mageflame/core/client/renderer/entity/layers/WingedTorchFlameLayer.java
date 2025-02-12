@@ -33,7 +33,7 @@ import net.neoforged.api.distmarker.OnlyIn;
  */
 @OnlyIn(Dist.CLIENT)
 public class WingedTorchFlameLayer<T extends Entity, M extends WingedTorchModel<T>> extends EyesLayer<T, M> {
-	private static final RenderType FLAME = RenderType.eyes(new ResourceLocation("mageflame","textures/entity/winged_torch_flame.png"));
+	private static final RenderType FLAME = RenderType.eyes(ResourceLocation.fromNamespaceAndPath("mageflame","textures/entity/winged_torch_flame.png"));
 
 	public WingedTorchFlameLayer(RenderLayerParent<T, M> layer) {
 		super(layer);

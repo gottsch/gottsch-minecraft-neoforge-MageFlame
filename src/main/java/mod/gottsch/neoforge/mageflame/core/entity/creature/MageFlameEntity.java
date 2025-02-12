@@ -17,30 +17,21 @@
  */
 package mod.gottsch.neoforge.mageflame.core.entity.creature;
 
-import org.jetbrains.annotations.NotNull;
-
 import mod.gottsch.neoforge.mageflame.core.config.Config;
-import mod.gottsch.neoforge.mageflame.core.setup.Registration;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.FlyingMob;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 
 /**
  *
  * @author Mark Gottschling on Apr 6, 2022
  *
  */
-public class MageFlameEntity extends SummonFlameBaseEntity {
+public class MageFlameEntity extends SummonedFlyingEntity {
 
 	public MageFlameEntity(EntityType<? extends FlyingMob> entityType, Level level) {
 		super(entityType, level, Config.SERVER.mageFlameLifespan.get());
-	}
-
-	@Override
-	public @NotNull Block getFlameBlock() {
-		 return Registration.MAGE_FLAME_BLOCK.get();
 	}
 
 	@Override

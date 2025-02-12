@@ -17,59 +17,42 @@
  */
 package mod.gottsch.neoforge.mageflame.core.entity.creature;
 
-import org.jetbrains.annotations.NotNull;
-
 import mod.gottsch.neoforge.mageflame.core.config.Config;
 import mod.gottsch.neoforge.mageflame.core.setup.Registration;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.FlyingMob;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * 
  * @author Mark Gottschling Jan 23, 2023
  *
  */
-public class GreaterRevelationEntity extends SummonFlameBaseEntity {
+public class GreaterRevelationEntity extends SummonedFlyingEntity {
 
 	public GreaterRevelationEntity(EntityType<? extends FlyingMob> entityType, Level level) {
 		super(entityType, level, Config.SERVER.greaterRevelationLifespan.get());
 	}
 
 	@Override
-	public @NotNull Block getFlameBlock() {
-		 return Registration.GREATER_REVELATION_BLOCK.get();
-	}
-
-	@Override
 	public void doLivingEffects() {
 		double d1 = this.getY() + 0.2;
-		for (int i=0; i < 2; i++) {
-			double d0 = this.getRandomX(0.5);
-			double d2 = this.getRandomZ(0.5);
-			// TODO update with custom particles
-			this.level().addParticle(Registration.REVELATION_PARTICLE.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+		if (level().getGameTime() % 2 == 0) {
+			double d0 = this.getRandomX(0.65);
+			double d2 = this.getRandomZ(0.65);
+			this.level().addParticle(Registration.GREATER_REVELATION_PARTICLE.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
 		}
-		double d0 = this.getX(0.5);
-		double d2 = this.getZ(0.5);
-		this.level().addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-		this.level().addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-	}
-	
-	/**
-	 * Greater Revelation is powerful enough to destroy replaceable blocks
-	 */
-	@Override
-	protected boolean testPlacement(BlockPos pos) {
-		BlockState state = this.level().getBlockState(pos);
-		// check block
-		if (state.isAir() || (state.canBeReplaced()) && state.getFluidState().isEmpty()) {
-			return true;
+		if (level().getGameTime() % 3 == 0) {
+			double d0 = this.getRandomX(0.65);
+			double d2 = this.getRandomZ(0.65);
+			this.level().addParticle(Registration.GREATER_REVELATION_PARTICLE.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
 		}
-		return false;
+
+		if (this.level().getGameTime() % 4 == 0) {
+			double d0 = this.getX(0.65);
+			double d2 = this.getZ(0.65);
+			this.level().addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+		}
 	}
 }

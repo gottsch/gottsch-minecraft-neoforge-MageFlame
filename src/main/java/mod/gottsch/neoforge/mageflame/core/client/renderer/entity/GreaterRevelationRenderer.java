@@ -18,11 +18,10 @@
 package mod.gottsch.neoforge.mageflame.core.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import mod.gottsch.neoforge.mageflame.core.MageFlame;
 import mod.gottsch.neoforge.mageflame.core.client.model.entity.LargeFlameBallModel;
 import mod.gottsch.neoforge.mageflame.core.client.renderer.entity.layers.GreaterRevelationGlowLayer;
-import mod.gottsch.neoforge.mageflame.core.entity.creature.SummonFlameBaseEntity;
+import mod.gottsch.neoforge.mageflame.core.entity.creature.GreaterRevelationEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -33,8 +32,8 @@ import net.minecraft.resources.ResourceLocation;
  *
  * @param <T>
  */
-public class GreaterRevelationRenderer<T extends SummonFlameBaseEntity> extends MobRenderer<T, LargeFlameBallModel<T>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(MageFlame.MOD_ID, "textures/entity/greater_revelation.png");
+public class GreaterRevelationRenderer<T extends GreaterRevelationEntity> extends MobRenderer<T, LargeFlameBallModel<T>> {
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(MageFlame.MOD_ID, "textures/entity/greater_revelation.png");
 	private final float scale;
 	
 	/**
@@ -48,12 +47,12 @@ public class GreaterRevelationRenderer<T extends SummonFlameBaseEntity> extends 
 	}
 
 	@Override
-	protected void scale(SummonFlameBaseEntity  mageFlame, PoseStack pose, float scale) {
+	protected void scale(GreaterRevelationEntity  mageFlame, PoseStack pose, float scale) {
 		pose.scale(this.scale, this.scale, this.scale);
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(SummonFlameBaseEntity entity) {
+	public ResourceLocation getTextureLocation(GreaterRevelationEntity entity) {
 		return TEXTURE;
 	}
 }

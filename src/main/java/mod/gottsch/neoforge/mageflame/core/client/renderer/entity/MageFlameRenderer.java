@@ -18,7 +18,6 @@
 package mod.gottsch.neoforge.mageflame.core.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import mod.gottsch.neoforge.mageflame.core.MageFlame;
 import mod.gottsch.neoforge.mageflame.core.client.model.entity.FlameBallModel;
 import mod.gottsch.neoforge.mageflame.core.client.renderer.entity.layers.MageFlameGlowLayer;
@@ -34,7 +33,7 @@ import net.minecraft.resources.ResourceLocation;
  * @param <T>
  */
 public class MageFlameRenderer<T extends MageFlameEntity> extends MobRenderer<T, FlameBallModel<T>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(MageFlame.MOD_ID, "textures/entity/mage_flame.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(MageFlame.MOD_ID, "textures/entity/mage_flame.png");
 	private final float scale;
 	
 	/**

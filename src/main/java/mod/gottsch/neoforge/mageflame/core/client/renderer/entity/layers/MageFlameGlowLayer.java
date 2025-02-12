@@ -18,11 +18,11 @@
 package mod.gottsch.neoforge.mageflame.core.client.renderer.entity.layers;
 
 import mod.gottsch.neoforge.mageflame.core.client.model.entity.FlameBallModel;
+import mod.gottsch.neoforge.mageflame.core.entity.creature.MageFlameEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -32,8 +32,8 @@ import net.neoforged.api.distmarker.OnlyIn;
  *
  */
 @OnlyIn(Dist.CLIENT)
-public class MageFlameGlowLayer<T extends Entity, M extends FlameBallModel<T>> extends EyesLayer<T, M> {
-	private static final RenderType FLAME = RenderType.eyes(new ResourceLocation("mageflame","textures/entity/mage_flame.png"));
+public class MageFlameGlowLayer<T extends MageFlameEntity, M extends FlameBallModel<T>> extends EyesLayer<T, M> {
+	private static final RenderType FLAME = RenderType.eyes(ResourceLocation.fromNamespaceAndPath("mageflame","textures/entity/mage_flame.png"));
 
 	public MageFlameGlowLayer(RenderLayerParent<T, M> layer) {
 		super(layer);

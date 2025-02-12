@@ -17,8 +17,7 @@
  */
 package mod.gottsch.neoforge.mageflame.core.item;
 
-import java.util.List;
-
+import mod.gottsch.neoforge.mageflame.core.setup.DynamicLights;
 import mod.gottsch.neoforge.mageflame.core.setup.Registration;
 import mod.gottsch.neoforge.mageflame.core.util.LangUtil;
 import net.minecraft.ChatFormatting;
@@ -27,15 +26,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 /**
  * 
  * @author Mark Gottschling Jan 19, 2023
  *
  */
-public class WingedTorchScroll extends SummonFlameBaseItem {
+public class WingedTorchScroll extends SummonFlyingScrollItem {
 
 	public WingedTorchScroll(Properties properties) {
 		super(properties);
@@ -49,7 +48,7 @@ public class WingedTorchScroll extends SummonFlameBaseItem {
 	public void appendBaseText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		tooltip.add(Component.translatable(LangUtil.tooltip("winged_torch.desc")).withStyle(ChatFormatting.YELLOW));
 		tooltip.add(Component.literal(LangUtil.NEWLINE));
-		tooltip.add(Component.translatable(LangUtil.tooltip("light_level"), Registration.GREATER_REVELATION_BLOCK.get().getLightEmission(Registration.GREATER_REVELATION_BLOCK.get().defaultBlockState(), (BlockGetter) null, null)));
+		tooltip.add(Component.translatable(LangUtil.tooltip("light_level"), DynamicLights.WINGED_TORCH_LUMINANCE));
 	}
 
 	@Override

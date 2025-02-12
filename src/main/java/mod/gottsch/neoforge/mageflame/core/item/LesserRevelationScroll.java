@@ -17,9 +17,8 @@
  */
 package mod.gottsch.neoforge.mageflame.core.item;
 
-import java.util.List;
-
 import mod.gottsch.neoforge.mageflame.core.config.Config;
+import mod.gottsch.neoforge.mageflame.core.setup.DynamicLights;
 import mod.gottsch.neoforge.mageflame.core.setup.Registration;
 import mod.gottsch.neoforge.mageflame.core.util.LangUtil;
 import net.minecraft.ChatFormatting;
@@ -28,16 +27,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+
+import java.util.List;
 
 /**
  * 
  * @author Mark Gottschling Jan 22, 2023
  *
  */
-public class LesserRevelationScroll extends SummonFlameBaseItem {
+public class LesserRevelationScroll extends SummonFlyingScrollItem {
 
 	public LesserRevelationScroll(Properties properties) {
 		super(properties);
@@ -51,7 +49,7 @@ public class LesserRevelationScroll extends SummonFlameBaseItem {
 	public void appendBaseText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		tooltip.add(Component.translatable(LangUtil.tooltip("lesser_revelation.desc")).withStyle(ChatFormatting.YELLOW));
 		tooltip.add(Component.literal(LangUtil.NEWLINE));
-		tooltip.add(Component.translatable(LangUtil.tooltip("light_level"), Registration.LESSER_REVELATION_BLOCK.get().getLightEmission(Registration.LESSER_REVELATION_BLOCK.get().defaultBlockState(), (BlockGetter)null, null)));
+		tooltip.add(Component.translatable(LangUtil.tooltip("light_level"), DynamicLights.LESSER_REVELATION_LUMINANCE));
 		tooltip.add(Component.translatable(LangUtil.tooltip("lifespan"), ticksToTime(Config.SERVER.lesserRevelationLifespan.get())));
 	}
 
