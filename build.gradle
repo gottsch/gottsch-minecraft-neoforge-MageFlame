@@ -26,7 +26,8 @@ repositories {
     maven {
         url = "https://maven.theillusivec4.top/"
     }
-    maven { url 'https://maven.blamejared.com' }
+    maven { url = 'https://maven.blamejared.com' }
+
 }
 
 base {
@@ -123,6 +124,8 @@ dependencies {
     implementation "gottsch:gottschcore-neoforge:1.21.1-2.3.0"
     implementation "curse.maven:dynamiclights-reforged-551736:6044477"
     implementation "curse.maven:embeddium-908741:6118392"
+    compileOnly "vazkii.patchouli:Patchouli:1.21-87-NEOFORGE:api"
+    localRuntime "vazkii.patchouli:Patchouli:1.21-87-NEOFORGE"
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
@@ -182,7 +185,7 @@ publishing {
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/repo"
+            url = "file://${project.projectDir}/repo"
         }
     }
 }
