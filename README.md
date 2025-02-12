@@ -1,27 +1,18 @@
+<img src="https://raw.githubusercontent.com/wiki/gottsch/gottsch-minecraft-fabric-mageflame/images/mageflame_title_v2.png" width=500>
 
-Installation information
-=======
+Mage Flame is a small mod that adds the ability to create dynamic light sources that follow you wherever you go.
+This is executed by using scrolls crafted from vanilla ingredients. No mana, no spell points,
+no mage classes, no levels. Just craft and use.
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions at [github](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+### VERSION 2
+Mage Flame now uses **LambdAurora**'s amazing [LambDynamicLights](https://www.curseforge.com/minecraft/mc-mods/lambdynamiclights) library to power the dynamic lighting (Fabric versions).
+This upgrade greatly improves performance providing higher frame-rates and a smoother experience.
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
-
-> **Note**: For Eclipse, use tasks in `Launch Group` instead of ones founds in `Java Application`. A preparation task must run before launching the game. NeoGradle uses launch groups to do these subsequently.
-
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
-
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
-
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+Other notable new features & changes:
+* Bubble Flame entity
+* Ember Hound entity
+* Glowglob entity
+* HUD for lifespan of summoned entities
+* Multiple summoned entities per player (configurable)
+* Improved summoned entity registration
+* In-game documentation via tooltips and optional [Patchouli](https://www.curseforge.com/minecraft/mc-mods/patchouli)
